@@ -27,3 +27,10 @@ d4<-filter(d2,Provider.State=="NY")
 
 q1<-qplot(Average.Covered.Charges/1000,Average.Total.Payments/1000, data = d4,geom = c("point","smooth"))
 
+##make a new variable showing Payment receive/cvrd charges
+d5<-mutate(d4,Percentage.Paid=Average.Total.Payments/Average.Covered.Charges)
+q2<-qplot(Average.Covered.Charges/1000,Percentage.Paid, data = d5,geom = c("point","smooth"))
+
+
+
+
