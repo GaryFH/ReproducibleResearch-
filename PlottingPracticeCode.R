@@ -31,6 +31,62 @@ q1<-qplot(Average.Covered.Charges/1000,Average.Total.Payments/1000, data = d4,ge
 d5<-mutate(d4,Percentage.Paid=Average.Total.Payments/Average.Covered.Charges)
 q2<-qplot(Average.Covered.Charges/1000,Percentage.Paid, data = d5,geom = c("point","smooth"))
 
+##Make a plot (possibly multi-panel) that answers the question: how does the 
+##relationship between mean covered charges (Average.Covered.Charges) and mean total payments 
+##(Average.Total.Payments) vary by medical condition (DRG.Definition)
+q3<-qplot(Average.Covered.Charges/1000,Average.Total.Payments/1000, data = d4,geom = c("smooth"), color=DRG.Definition)
+
+
+q4<-qplot(Average.Covered.Charges/1000,Percentage.Paid, data = d5,geom = c("smooth"),color=DRG.Definition)
+q41<-qplot(Average.Covered.Charges/1000,Percentage.Paid, data = d35,geom = c("smooth"),color=DRG.Definition,facets =Provider.State~.)
+
+q5<-qplot(Average.Covered.Charges/1000,Percentage.Paid, data = d5,geom = c("smooth"))
+
+clrs<-c("red",'blue','yellow','brown','green','orange')
+
+d35<-mutate(d2,Percentage.Paid=Average.Total.Payments/Average.Covered.Charges)
+q35<-qplot(DRG.Definition,Percentage.Paid, data = d35,geom = "boxplot",color=Provider.State)
+q36<-qplot(Provider.State,Percentage.Paid, data = d35,geom = "boxplot",color=DRG.Definition)
+q37<-qplot(Provider.State,Percentage.Paid, data = d35,geom = "boxplot",facets=.~DRG.Definition)
+
+##q41 is best qplot - q37 is second best (boxplot)
+
+##now try ggplot
+
+g<-ggplot(d35,aes(Average.Covered.Charges/1000,Percentage.Paid,color=factor(DRG.Definition)))
+q6<-g+geom_smooth(size=1,method = "lm")+facet_grid(Provider.State~.,margins = TRUE)+labs(title="Percentage Paid by Condition & State")+labs(x="Total amount billed in 1000's dollars",y="Percentage of total billed that was Paid")
+
+
+
+
+
+
+
+##example: g+geom_point(aes(color=drv),size=2,alpha=1/2)+geom_smooth(size=4,linetype=3,
+##method = "lm",se=FALSE)+labs(title="Swirl Rules!")+labs(x="Displacement",y="Hwy Mileage")
+
+##  This is step one
+##g<-ggplot(mpg,aes(displ,hwy,color=factor(year)))   3 arguments, x set equal to displ, y set equal to hwy,
+##and color set equal to factor(year). This last will allow us to distinguish between the two manufacturing 
+##years (1999 and 2008) in our data.
+
+##      This is step two
+####g+geom_point()
+
+##      This is step three
+#### g+geom_point()+facet_grid(drv~cyl,margins = TRUE)
+##A 4 by 5 plot, huh? The margins argument tells ggplot to display the marginal totals over 
+##each row and column, soinstead of seeing 3 rows (the number of drv factors) and 4 columns 
+##(the number of cyl factors) we see a 4 by 5 display. Note that the panel in position 
+##(4,5) is a tiny version of the scatterplot of the entire dataset
+
+##      This is step four
+##g+geom_point()+facet_grid(drv~cyl,margins = TRUE)+geom_smooth(method = "lm",se=FALSE,size=2,color="black")
+##
+
+##      This is step five
+##g+geom_point()+facet_grid(drv~cyl,margins = TRUE)+geom_smooth(method = "lm",se=FALSE,size=2,color="black")
+        ##+labs(x="Displacement",y="Highway Mileage",title="Swirl Rules!")
 
 
 
