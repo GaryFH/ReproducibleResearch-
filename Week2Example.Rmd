@@ -1,0 +1,31 @@
+---
+title: "Week 2 example work file"
+author: "GaryFH"
+date: "April 12, 2017"
+output: html_document
+
+Following R Markdown Demonstration
+
+
+```{r}
+library(datasets)
+data(airquality)
+summary(airquality)
+class(airquality)
+```
+
+
+
+
+Try Pairs plotting for first time
+```{r}
+pairs(airquality)
+```
+
+
+Try an unordered list
+
+1 First   
+4 Second  
+2 Third  
+3 Fourth
