@@ -1,0 +1,41 @@
+
+#Dr Peng example (note "#" means level 1 heading)
+##Introduction  (note "##" means level 2 heading)
+### echo=FALSE means code is not part of output document
+####echo=FALSE means code is not part of output document
+#####echo=FALSE means code is not part of output document
+######echo=FALSE means code is not part of output document
+###results="hide" means results of code chunk are not shown
+```{r simulation,echo=FALSE}
+set.seed(2)
+x<-rnorm(100)
+mean(x)
+```
+
+##Show how use code to insert in document
+
+```{r determinetime,echo=FALSE}
+time<-format(Sys.time(),"%a %b %d %X %Y")
+rand<-rnorm(1)
+```
+The current time is `r time` and my favorite number is `r rand`.
+
+
+#Making Tables
+
+```{r tablename}
+library(datasets)
+data(airquality)
+fit<-lm(Ozone~Wind + Temp + Solar.R, data = airquality)
+```
+Here is table of regression coefificeints.
+
+```{r showtable,results="asis"}
+library(xtable)
+xt<-xtable(summary(fit))
+print(xt, type="html")
+
+
+#Global options can be set by running ```{r} opts_chunk$set(echo=FALSE,results=hide,fig.height=4,etc.)
+###chache=TRUE as part of a codechunk will save the chunk's output and only run it if it is changed - a good option for long codes
+

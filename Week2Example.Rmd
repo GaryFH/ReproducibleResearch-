@@ -19,6 +19,7 @@ class(airquality)
 
 Try Pairs plotting for first time
 ```{r}
+
 pairs(airquality)
 ```
 
@@ -29,3 +30,4 @@ Try an unordered list
 4 Second  
 2 Third  
 3 Fourth
+
